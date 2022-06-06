@@ -1,13 +1,14 @@
 import React from 'react'
 import ProductForm from './ProductForm';
 
-const Product = () => {
+const Product = ({ info }) => {
+  const { title, quantity, price } = info
   return (
     <div class="product">
       <div class="product-details">
-        <h3>Amazon Kindle E-reader</h3>
-        <p class="price">$79.99</p>
-        <p class="quantity">5 left in stock</p>
+        <h3>{title}</h3>
+        <p class="price">{price}</p>
+        <p class="quantity">{quantity} left in stock</p>
         <div class="actions product-actions">
           <a class="button add-to-cart">Add to Cart</a>
           <a class="button edit">Edit</a>
@@ -15,7 +16,7 @@ const Product = () => {
         <a class="delete-button"><span>X</span></a>
       </div>
 
-      <ProductForm />
+      <ProductForm info={info}/>
     </div>
   )
 }
