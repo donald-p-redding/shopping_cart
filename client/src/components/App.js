@@ -33,6 +33,15 @@ const App = () => {
     setProducts(parsedData)
   }
 
+  const handleDeleteProduct = async (id) => {
+    const res = await fetch(`/api/products/${id}`, {
+      method: 'DELETE',
+    })
+    if (res.ok) {
+      setProducts(products.filter((p) => p._id !== id))
+    }
+  }
+
   useEffect(() => {
     retrieveProducts()
   }, [])
@@ -41,7 +50,7 @@ const App = () => {
     <div id="app">
       <Header products={products}/>
       <main>
-        <Products products={products}/>
+        <Products products={products} onDelete={handleDeleteProduct}/>
         <AddProductForm onAddProduct={handleAddProduct}/>
       </main>
     </div>
