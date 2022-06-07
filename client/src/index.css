@@ -73,7 +73,7 @@ h3 {
   color: red;
 }
 
-.product .edit-form,
+.product .edit-form.visible,
 .add-form {
   margin-top: 20px;
   border-top: 1px solid #ccc;
@@ -156,7 +156,9 @@ input[type="text"]:focus {
 }
 
 .add-form h3,
-.add-form form {
+.edit-form h3,
+.add-form form,
+.edit-form {
   display: none;
 }
 
@@ -165,7 +167,9 @@ input[type="text"]:focus {
 }
 
 .add-form.visible h3,
-.add-form.visible form {
+.add-form.visible form,
+.edit-form.visible,
+.edit-form.visible h3 {
   display: block;
 }
 

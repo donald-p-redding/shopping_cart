@@ -1,22 +1,27 @@
-import React from 'react'
-import ProductForm from './ProductForm';
+import { React, useState } from 'react'
+import EditProductForm from './EditProductForm';
 
 const Product = ({ info }) => {
-  const { title, quantity, price } = info
+  const { title, quantity, price } = info;
+
+  const [ visible, setVisible ] = useState(false);
+
+  const toggleVisibility = () => setVisible(!visible);
+
   return (
-    <div class="product">
-      <div class="product-details">
+    <div className="product">
+      <div className="product-details">
         <h3>{title}</h3>
-        <p class="price">{price}</p>
-        <p class="quantity">{quantity} left in stock</p>
-        <div class="actions product-actions">
-          <a class="button add-to-cart">Add to Cart</a>
-          <a class="button edit">Edit</a>
+        <p className="price">{price}</p>
+        <p className="quantity">{quantity} left in stock</p>
+        <div className="actions product-actions">
+          <a className="button add-to-cart">Add to Cart</a>
+          <a onClick={toggleVisibility} className="button edit">Edit</a>
         </div>
-        <a class="delete-button"><span>X</span></a>
+        <a className="delete-button"><span>X</span></a>
       </div>
 
-      <ProductForm info={info}/>
+      <EditProductForm info={info} visible={visible} toggle={toggleVisibility}/>
     </div>
   )
 }
