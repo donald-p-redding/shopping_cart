@@ -10,6 +10,19 @@ const App = () => {
   const [ products, setProducts ] = useState([])
   //const [ cart, setCart ] = useState([]) eventually plan to implement cart
 
+  const handleAddProduct = async (newProduct) => {
+    console.log(newProduct)
+    const newProdJSON = await fetch("/api/products", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newProduct)
+    })
+    const contents = await newProdJSON.json()
+    setProducts(products.concat(contents))
+  }
+
   useEffect(() => {
     setProducts(data)
   }, [])
@@ -19,7 +32,7 @@ const App = () => {
       <Header products={products}/>
       <main>
         <Products products={products}/>
-        <AddProductForm />
+        <AddProductForm onAddProduct={handleAddProduct}/>
       </main>
     </div>
   );

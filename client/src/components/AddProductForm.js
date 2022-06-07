@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 
-const AddProductForm = () => {
+const AddProductForm = ({onAddProduct}) => {
   const [ visible, setVisible ] = useState(false)
 
   const classType = visible ? "add-form visible" : "add-form";
@@ -43,7 +43,23 @@ const AddProductForm = () => {
         </div>
 
         <div class="actions form-actions">
-          <a className="button">Add</a>
+          <button className="button"
+          onClick={(e) => {
+            // {
+            //   title, string
+            //   price, number
+            //   quantity, number
+            // }
+            e.preventDefault()
+            let newProd = {
+              title: productName,
+              price: Number(Number.parseFloat(productPrice).toFixed(2)),
+              quantity: Number.parseInt(productQuantity, 10),
+            }
+            onAddProduct(newProd)
+          }}>
+            Add
+          </button>
           <button 
           onClick={(e) => {
             e.preventDefault()
