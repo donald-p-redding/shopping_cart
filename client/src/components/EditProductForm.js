@@ -1,10 +1,12 @@
 import React from 'react'
 
-const ProductForm = ({ info }) => {
+const EditProductForm = ({ info, visible, toggle }) => {
   const { title, quantity, price } = info
 
+  const classType = visible ? 'edit-form visible' : 'edit-form';
+
   return (
-    <div class="edit-form">
+    <div className={classType}>
     <h3>Edit Product</h3>
       <form>
         <div class="input-group">
@@ -23,12 +25,12 @@ const ProductForm = ({ info }) => {
         </div>
 
         <div class="actions form-actions">
-          <a class="button">Update</a>
-          <a class="button">Cancel</a>
+          <a className="button">Update</a>
+          <a onClick={toggle} className="button">Cancel</a>
         </div>
       </form>
     </div>
   )
 }
 
-export default ProductForm;
+export default EditProductForm;

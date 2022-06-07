@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import Header from "./Header"
 import Products from "./Products"
+import AddProductForm from "./AddProductForm";
 import data from '../lib/data'
 
 //array of products
@@ -16,7 +17,10 @@ const App = () => {
   return (
     <div id="app">
       <Header products={products}/>
-      <Products products={products}/>
+      <main>
+        <Products products={products}/>
+        <AddProductForm />
+      </main>
     </div>
   );
 };
