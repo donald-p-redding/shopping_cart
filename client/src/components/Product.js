@@ -1,12 +1,14 @@
 import { React, useState } from 'react'
 import EditProductForm from './EditProductForm';
 
-const Product = ({ info }) => {
-  const { title, quantity, price } = info;
+const Product = ({ info, onDelete }) => {
+  const { title, quantity, price, _id } = info;
 
   const [ visible, setVisible ] = useState(false);
 
   const toggleVisibility = () => setVisible(!visible);
+
+
 
   return (
     <div className="product">
@@ -15,10 +17,10 @@ const Product = ({ info }) => {
         <p className="price">{price}</p>
         <p className="quantity">{quantity} left in stock</p>
         <div className="actions product-actions">
-          <a className="button add-to-cart">Add to Cart</a>
-          <a onClick={toggleVisibility} className="button edit">Edit</a>
+          <button className="button add-to-cart">Add to Cart</button>
+          <button onClick={toggleVisibility} className="button edit">Edit</button>
         </div>
-        <a className="delete-button"><span>X</span></a>
+        <button className="delete-button" onClick={() => onDelete(_id)}><span>X</span></button>
       </div>
 
       <EditProductForm info={info} visible={visible} toggle={toggleVisibility}/>

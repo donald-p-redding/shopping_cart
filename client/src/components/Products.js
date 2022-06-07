@@ -1,11 +1,11 @@
 import React from 'react'
 import Product from './Product'
 
-const Products = ({ products }) => {
+const Products = ({ products, onDelete }) => {
   return (
     <div class="product-listing">
         <h2>Products</h2>
-        { products.map(prod => <Product key={prod._id} info={prod} />)}
+        { products.map(prod => <Product key={prod._id} info={prod} onDelete={onDelete}/>)}
     </div>
   )
 }
