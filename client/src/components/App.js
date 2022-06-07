@@ -42,6 +42,23 @@ const App = () => {
     }
   }
 
+  const handleUpdateProduct = async (id, productInfo) => {
+    const updatedProduct = await fetch(`/api/products/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(productInfo)
+    })
+    const newData = await updatedProduct.json()
+    setProducts(products.map((p) => {
+      if (p._id === id) {
+        return newData
+      }
+      return p
+    }))
+  }
+
   useEffect(() => {
     retrieveProducts()
   }, [])
@@ -50,7 +67,7 @@ const App = () => {
     <div id="app">
       <Header products={products}/>
       <main>
-        <Products products={products} onDelete={handleDeleteProduct}/>
+        <Products products={products} onDelete={handleDeleteProduct} onUpdate={handleUpdateProduct}/>
         <AddProductForm onAddProduct={handleAddProduct}/>
       </main>
     </div>

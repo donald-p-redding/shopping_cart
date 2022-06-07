@@ -1,7 +1,7 @@
 import { React, useState } from 'react'
 import EditProductForm from './EditProductForm';
 
-const Product = ({ info, onDelete }) => {
+const Product = ({ info, onDelete, onUpdate }) => {
   const { title, quantity, price, _id } = info;
 
   const [ visible, setVisible ] = useState(false);
@@ -23,7 +23,7 @@ const Product = ({ info, onDelete }) => {
         <button className="delete-button" onClick={() => onDelete(_id)}><span>X</span></button>
       </div>
 
-      <EditProductForm info={info} visible={visible} toggle={toggleVisibility}/>
+      <EditProductForm info={info} visible={visible} toggle={toggleVisibility} onUpdate={onUpdate}/>
     </div>
   )
 }

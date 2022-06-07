@@ -1,6 +1,6 @@
 import {React, useState} from 'react'
 
-const EditProductForm = ({ info, visible, toggle }) => {
+const EditProductForm = ({ info, visible, toggle, onUpdate }) => {
   const { title, quantity, price, _id } = info
 
   const [productInfo, setProductInfo] = useState({title, quantity, price})
@@ -26,6 +26,7 @@ const EditProductForm = ({ info, visible, toggle }) => {
     )
   }
 
+  
   const classType = visible ? 'edit-form visible' : 'edit-form';
 
   return (
@@ -52,7 +53,14 @@ const EditProductForm = ({ info, visible, toggle }) => {
           className="button"
           onClick={(e) => {
             e.preventDefault()
+            let updatedProd = {
+              title: productInfo.title,
+              price: Number(Number.parseFloat(productInfo.price).toFixed(2)),
+              quantity: Number.parseInt(productInfo.quantity, 10),
+            }
             console.log('updating info')
+            onUpdate(_id, updatedProd)
+            toggle()
           }}>
             Update
             </button>
