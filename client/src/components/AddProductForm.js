@@ -10,6 +10,12 @@ const AddProductForm = () => {
     setVisible(!visible)
   }
 
+  const reset = () => {
+    setProductName("");
+    setProductPrice("");
+    setProductQuantity("")
+  }
+
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
@@ -38,7 +44,15 @@ const AddProductForm = () => {
 
         <div class="actions form-actions">
           <a className="button">Add</a>
-          <a onClick={toggleVisibility}s className="button">Cancel</a>
+          <button 
+          onClick={(e) => {
+            e.preventDefault()
+            reset()
+            toggleVisibility()
+          }}
+          className="button">
+            Cancel
+            </button>
         </div>
       </form>
     </div>
