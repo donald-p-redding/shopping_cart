@@ -25,8 +25,8 @@ const EditProductForm = ({ info, visible, toggle }) => {
         </div>
 
         <div class="actions form-actions">
-          <a className="button">Update</a>
-          <a onClick={toggle} className="button">Cancel</a>
+          <button className="button">Update</button>
+          <button onClick={toggle} className="button">Cancel</button>
         </div>
       </form>
     </div>
