@@ -10,7 +10,7 @@ const App = () => {
   const [ products, setProducts ] = useState([])
   //const [ cart, setCart ] = useState([]) eventually plan to implement cart
 
-  const handleAddProduct = async (newProduct) => {
+  const handleAddProduct = async (newProduct, callback) => {
     console.log(newProduct)
     const newProdJSON = await fetch("/api/products", {
       method: 'POST',
@@ -21,10 +21,20 @@ const App = () => {
     })
     const contents = await newProdJSON.json()
     setProducts(products.concat(contents))
+    console.log(callback)
+    if (callback) {
+      callback()
+    }
+  }
+
+  const retrieveProducts = async() => {
+    const data = await fetch("/api/products")
+    const parsedData = await data.json()
+    setProducts(parsedData)
   }
 
   useEffect(() => {
-    setProducts(data)
+    retrieveProducts()
   }, [])
 
   return (

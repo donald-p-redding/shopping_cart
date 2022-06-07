@@ -45,18 +45,13 @@ const AddProductForm = ({onAddProduct}) => {
         <div class="actions form-actions">
           <button className="button"
           onClick={(e) => {
-            // {
-            //   title, string
-            //   price, number
-            //   quantity, number
-            // }
             e.preventDefault()
             let newProd = {
               title: productName,
               price: Number(Number.parseFloat(productPrice).toFixed(2)),
               quantity: Number.parseInt(productQuantity, 10),
             }
-            onAddProduct(newProd)
+            onAddProduct(newProd, reset)
           }}>
             Add
           </button>
