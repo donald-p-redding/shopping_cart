@@ -6,7 +6,7 @@ import EditProductForm from './EditProductForm'
 
 
 describe("<EditProductForm />", () => {
-
+    let fnc;
     beforeEach(() => {
       const product =   {
         id: 1,
@@ -14,7 +14,8 @@ describe("<EditProductForm />", () => {
         quantity: 5,
         price: 79.99
       }
-      render(<EditProductForm info={product}/>)
+      fnc = jest.fn()
+      render(<EditProductForm info={product} onUpdate={fnc} toggle={() => {}}/>)
     })
 
     it("should initially render", () => {
@@ -26,6 +27,24 @@ describe("<EditProductForm />", () => {
       const titleField = screen.getByRole("textbox", {name: "Product Name"})
       userEvent.type(titleField, 'II')
       expect(titleField).toHaveValue("Amazon Kindle E-readerII")
+    })
+
+    it("price field changes with user input", () => {
+      const priceField = screen.getByRole("textbox", {name: "Price"})
+      userEvent.type(priceField, "{backspace}")
+      expect(priceField).toHaveValue("79.9")
+    })
+
+    it("quantity field changes with user input", () => {
+      const quantityField = screen.getByRole("textbox", {name: "Quantity"})
+      userEvent.type(quantityField, "4")
+      expect(quantityField).toHaveValue("54")
+    })
+
+    it("update button triggers a callback on click", () => {
+      const updateButton = screen.getByRole("button", {name: "Update"})
+      userEvent.click(updateButton);
+      expect(fnc.mock.calls.length).toBe(1)      
     })
   }
 ) 
