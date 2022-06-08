@@ -33,26 +33,26 @@ const EditProductForm = ({ info, visible, toggle, onUpdate }) => {
     <div className={classType}>
     <h3>Edit Product</h3>
       <form>
-        <div class="input-group">
-          <label for="product-name">Product Name</label>
+        <div className="input-group">
+          <label htmlFor="product-name">Product Name</label>
           <input type="text" id="product-name" value={productInfo.title} onChange={titleChange}/>
         </div>
 
-        <div class="input-group">
-          <label for="product-price">Price</label>
+        <div className="input-group">
+          <label htmlFor="product-price">Price</label>
           <input type="text" id="product-price" value={productInfo.price} onChange={priceChange}/>
         </div>
 
-        <div class="input-group">
-          <label for="product-quantity">Quantity</label>
+        <div className="input-group">
+          <label htmlFor="product-quantity">Quantity</label>
           <input type="text" id="product-quantity" value={productInfo.quantity} onChange={quantityChange}/>
         </div>
 
-        <div class="actions form-actions">
+        <div className="actions form-actions">
           <button 
           className="button"
           onClick={(e) => {
-            e.preventDefault()
+            e.preventDefault() //extract to a helper
             let updatedProd = {
               title: productInfo.title,
               price: Number(Number.parseFloat(productInfo.price).toFixed(2)),
