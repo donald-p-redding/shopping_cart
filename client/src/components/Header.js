@@ -11,7 +11,7 @@ const Header = ({ cart, onCheckout }) => {
   return (
     <header>
       <h1>The Shop!</h1>
-      <div class="cart">
+      <div className="cart">
         <h2>Your Cart</h2>
         <CartList cartItems={cart}/>
         <button onClick={handleCheckout} className="button checkout">Checkout</button>
