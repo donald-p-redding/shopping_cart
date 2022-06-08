@@ -19,7 +19,6 @@ const App = () => {
   }
 
   const handleAddProduct = async (newProduct, callback) => {
-    console.log(newProduct)
     const newProdJSON = await fetch("/api/products", {
       method: 'POST',
       headers: {

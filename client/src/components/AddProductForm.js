@@ -45,7 +45,7 @@ const AddProductForm = ({onAddProduct}) => {
         <div class="actions form-actions">
           <button className="button"
           onClick={(e) => {
-            e.preventDefault()
+            e.preventDefault() //make a handleClick func
             let newProd = {
               title: productName,
               price: Number(Number.parseFloat(productPrice).toFixed(2)),
