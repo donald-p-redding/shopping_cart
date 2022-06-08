@@ -4,7 +4,7 @@ const EditProductForm = ({ info, visible, toggle, onUpdate }) => {
   const { title, quantity, price, _id } = info
 
   const [productInfo, setProductInfo] = useState({title, quantity, price})
-
+  
   const titleChange = (e) => {
     setProductInfo(
       {...productInfo,

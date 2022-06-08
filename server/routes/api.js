@@ -132,6 +132,8 @@ router.delete("/products/:id", (req, res, next) => {
       res.json();
     })
     .catch((err) => next(err));
+
+    //search cart IF it exists --> return the new cart state
 });
 
 router.post("/add-to-cart", (req, res, next) => {

@@ -73,6 +73,21 @@ const App = () => {
     }))
   }
 
+  const handleCheckout = async () => {
+    try {
+      const resp = await fetch("/api/checkout", {
+        method: "POST"
+      });
+
+      if(resp.ok) {
+        setCart([])
+      }
+    } catch(e) {
+      console.log(e)
+    }
+
+  }
+
   const handleCartAdd = async (productId) => {
     const resp = await fetch("/api/add-to-cart", {
       method: "POST",
@@ -110,7 +125,7 @@ const App = () => {
 
   return (
     <div id="app">
-      <Header cart={cart}/>
+      <Header cart={cart} onCheckout={handleCheckout}/>
       <main>
         <Products products={products} onDelete={handleDeleteProduct} onUpdate={handleUpdateProduct} onCartAdd={handleCartAdd}/>
         <AddProductForm onAddProduct={handleAddProduct}/>
