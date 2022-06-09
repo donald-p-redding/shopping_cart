@@ -23,12 +23,24 @@ const Products = ({ onDelete, onUpdate, onCartAdd }) => {
     }
   }
 
+  const handleUpdateProduct = async (id, productInfo) => {
+    const updatedProduct = await fetch(`/api/products/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(productInfo)
+    })
+    const newData = await updatedProduct.json()
+    dispatch(productActions.createProductUpdated(newData))
+  }
+
   useEffect(() => retrieveProducts(), [dispatch])
 
   return (
     <div class="product-listing">
         <h2>Products</h2>
-        { products.map(prod => <Product key={prod._id} info={prod} onDelete={handleDeleteProduct} onUpdate={onUpdate} onCartAdd={onCartAdd}/>)}
+        { products.map(prod => <Product key={prod._id} info={prod} onDelete={handleDeleteProduct} onUpdate={handleUpdateProduct} onCartAdd={onCartAdd}/>)}
     </div>
   )
 }
