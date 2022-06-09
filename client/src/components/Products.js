@@ -4,9 +4,9 @@ import { useSelector , useDispatch} from 'react-redux'
 import { useEffect } from 'react'
 import { productActions } from '../lib/reducers/productsReducer'
 
-const Products = ({ onDelete, onUpdate, onCartAdd }) => {
+const Products = () => {
   const dispatch = useDispatch()
-  const products = useSelector(state => state)
+  const  { products } = useSelector(state => state)
   
   const retrieveProducts = async() => {
     const data = await fetch("/api/products")
@@ -40,7 +40,7 @@ const Products = ({ onDelete, onUpdate, onCartAdd }) => {
   return (
     <div class="product-listing">
         <h2>Products</h2>
-        { products.map(prod => <Product key={prod._id} info={prod} onDelete={handleDeleteProduct} onUpdate={handleUpdateProduct} onCartAdd={onCartAdd}/>)}
+        { products.map(prod => <Product key={prod._id} info={prod} onDelete={handleDeleteProduct} onUpdate={handleUpdateProduct}/>)}
     </div>
   )
 }
