@@ -2,17 +2,13 @@ import { React, useState, useEffect } from "react";
 import Header from "./Header"
 import Products from "./Products"
 import AddProductForm from "./AddProductForm";
-import data from '../lib/data'
+import { useDispatch } from "react-redux";
 
-/*
-  06/07/2022
-  Too much logic in the component. We need to extract DB/API interactions
-  to a services directory and import.
-*/
 
 const App = () => {
   const [ products, setProducts ] = useState([])
   const [ cart, setCart ] = useState([])
+  const dispatch = useDispatch()
 
   const notInCart = (id) => {
     return !cart.find(cartItem => cartItem._id === id)
@@ -121,6 +117,8 @@ const App = () => {
     retrieveProducts()
     populateCart()
   }, [])
+
+  dispatch({type: "SOMETHING"})
 
   return (
     <div id="app">
