@@ -1,9 +1,6 @@
 import { React, useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { productActions } from '../lib/reducers/productsReducer';
 
 const AddProductForm = ({onAddProduct}) => {
-  const dispatch = useDispatch()
   const [ visible, setVisible ] = useState(false)
 
   const classType = visible ? "add-form visible" : "add-form";
@@ -17,18 +14,6 @@ const AddProductForm = ({onAddProduct}) => {
     setProductName("");
     setProductPrice("");
     setProductQuantity("")
-  }
-
-  const handleAddProduct = async (newProduct) => {
-    const newProdJSON = await fetch("/api/products", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newProduct)
-    })
-    const contents = await newProdJSON.json()
-    dispatch(productActions.createProductAdded(contents))
   }
 
   const [productName, setProductName] = useState("");
@@ -66,8 +51,7 @@ const AddProductForm = ({onAddProduct}) => {
               price: Number(Number.parseFloat(productPrice).toFixed(2)),
               quantity: Number.parseInt(productQuantity, 10),
             }
-            handleAddProduct(newProd)
-            reset()
+            onAddProduct(newProd, reset)
           }}>
             Add
           </button>
