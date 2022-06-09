@@ -31,6 +31,7 @@ const Products = () => {
       },
       body: JSON.stringify(productInfo)
     })
+    
     const newData = await updatedProduct.json()
     dispatch(productActions.createProductUpdated(newData))
   }

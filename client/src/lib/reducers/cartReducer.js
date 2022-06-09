@@ -29,7 +29,7 @@ const createCartReceived = (data) => {
   }
 }
 
-const createItemAddedCart = (data, inCart) => {
+const createItemAddedCart = ({ data, inCart }) => {
   return {
     type: "ITEM_ADDED_CART",
     payload: {data, inCart}
@@ -41,21 +41,7 @@ const createCartCheckout = () => {
     type: "CART_CHECKOUT",
   }
 }
-// move to cart list
-// const handleCartAdd = async (productId) => {
-//   const resp = await fetch("/api/add-to-cart", {
-//     method: "POST",
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({productId})
-//   });
 
-//   const { product:updatedProduct, item:newCartItem } = await resp.json();
-
-//   dispatch(productActions.createProductUpdated(updatedProduct))
-
-// }
 export const cartActions = {
   createCartCheckout,
   createCartReceived,
