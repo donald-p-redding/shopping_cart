@@ -2,21 +2,74 @@ import { React, useState, useEffect } from "react";
 import Header from "./Header"
 import Products from "./Products"
 import AddProductForm from "./AddProductForm";
-import { useDispatch } from "react-redux";
+import data from '../lib/data'
 
+/*
+  06/07/2022
+  Too much logic in the component. We need to extract DB/API interactions
+  to a services directory and import.
+*/
 
 const App = () => {
+  const [ products, setProducts ] = useState([])
   const [ cart, setCart ] = useState([])
-  const dispatch = useDispatch()
 
   const notInCart = (id) => {
     return !cart.find(cartItem => cartItem._id === id)
+  }
+
+  const handleAddProduct = async (newProduct, callback) => {
+    const newProdJSON = await fetch("/api/products", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newProduct)
+    })
+    const contents = await newProdJSON.json()
+    setProducts(products.concat(contents))
+    console.log(callback)
+    if (callback) {
+      callback()
+    }
+  }
+
+  const retrieveProducts = async() => {
+    const data = await fetch("/api/products")
+    const parsedData = await data.json()
+    setProducts(parsedData)
   }
 
   const populateCart = async() => {
     const res = await fetch("/api/cart");
     const cartData = await res.json()
     setCart(cartData)
+  }
+
+  const handleDeleteProduct = async (id) => {
+    const res = await fetch(`/api/products/${id}`, {
+      method: 'DELETE',
+    })
+    if (res.ok) {
+      setProducts(products.filter((p) => p._id !== id))
+    }
+  }
+
+  const handleUpdateProduct = async (id, productInfo) => {
+    const updatedProduct = await fetch(`/api/products/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(productInfo)
+    })
+    const newData = await updatedProduct.json()
+    setProducts(products.map((p) => {
+      if (p._id === id) {
+        return newData
+      }
+      return p
+    }))
   }
 
   const handleCheckout = async () => {
@@ -65,17 +118,16 @@ const App = () => {
   }
 
   useEffect(() => {
+    retrieveProducts()
     populateCart()
   }, [])
-
-  dispatch({type: "SOMETHING"})
 
   return (
     <div id="app">
       <Header cart={cart} onCheckout={handleCheckout}/>
       <main>
-        <Products onCartAdd={handleCartAdd}/>
-        <AddProductForm/>
+        <Products products={products} onDelete={handleDeleteProduct} onUpdate={handleUpdateProduct} onCartAdd={handleCartAdd}/>
+        <AddProductForm onAddProduct={handleAddProduct}/>
       </main>
     </div>
   );
