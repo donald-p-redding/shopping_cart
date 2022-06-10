@@ -22,6 +22,15 @@ export const handleUpdateProduct = createAsyncThunk("products/handleUpdateProduc
   return newData;
 })
 
+export const handleDeleteProduct = createAsyncThunk("products/handleDeleteProduct", async (id) => {
+    console.log("hello from delete thunk")
+    const res = await fetch(`/api/products/${id}`, {
+      method: 'DELETE',
+    })
+
+    return id;
+})
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -34,7 +43,7 @@ const productsSlice = createSlice({
     builder.addCase(handleUpdateProduct.fulfilled, (state, action) => {
       const updatedProduct = action.payload
       const productId = updatedProduct._id
-      
+
       return state.map((p) => {
         if (p._id === productId) {
           return updatedProduct
@@ -42,7 +51,20 @@ const productsSlice = createSlice({
         return p
       })
     });
+
+    builder.addCase(handleDeleteProduct.fulfilled, (state, action) => {
+      return state.filter((p) =>  p._id !== action.payload)
+    });
   }
 })
+
+// const handleDeleteProduct = async (id) => {
+//   const res = await fetch(`/api/products/${id}`, {
+//     method: 'DELETE',
+//   })
+//   if (res.ok) {
+//     dispatch(productActions.createProductDeleted(id))
+//   }
+// }
 
 export default productsSlice.reducer;

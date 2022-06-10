@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import EditProductForm from './EditProductForm';
 import { cartActions } from '../lib/reducers/cartReducer';
 import { productActions } from '../lib/reducers/productsReducer';
+import { handleDeleteProduct } from '../features/productsSlice'
 
 const Product = ({ info, onDelete, onUpdate }) => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Product = ({ info, onDelete, onUpdate }) => {
           <button onClick={addToCart} className="button add-to-cart">Add to Cart</button>
           <button onClick={toggleVisibility} className="button edit">Edit</button>
         </div>
-        <button className="delete-button" onClick={() => onDelete(_id)}><span>X</span></button>
+        <button className="delete-button" onClick={() => dispatch(handleDeleteProduct(_id))}><span>X</span></button>
       </div>
 
       <EditProductForm info={info} visible={visible} toggle={toggleVisibility} onUpdate={onUpdate}/>

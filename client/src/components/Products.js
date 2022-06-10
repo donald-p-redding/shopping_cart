@@ -9,15 +9,6 @@ const Products = () => {
   const dispatch = useDispatch()
   const  products = useSelector((state) => state.products)
   
-  const handleDeleteProduct = async (id) => {
-    const res = await fetch(`/api/products/${id}`, {
-      method: 'DELETE',
-    })
-    if (res.ok) {
-      dispatch(productActions.createProductDeleted(id))
-    }
-  }
-
 
 
   useEffect(() => dispatch(retrieveProducts()), [dispatch])
@@ -25,7 +16,7 @@ const Products = () => {
   return (
     <div class="product-listing">
         <h2>Products</h2>
-        { products.map(prod => <Product key={prod._id} info={prod} onDelete={handleDeleteProduct} />)}
+        { products.map(prod => <Product key={prod._id} info={prod} />)}
     </div>
   )
 }
