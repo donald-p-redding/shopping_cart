@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { handleUpdateProduct } from "./productsSlice";
 
 const initialState = []
 
@@ -17,18 +18,16 @@ export const cartCheckout = createAsyncThunk("cart/cartCheckout", async() => {
 
 export const handleAddToCart = createAsyncThunk("cart/handleAddToCart", async(_id) => {
   const resp = await fetch("/api/add-to-cart", {
-  method: "POST",
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({productId: _id})
-});
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({productId: _id})
+  });
 
-const { product:updatedProduct, item:newCartItem } = await resp.json();
+  const data = await resp.json();
 
-  //dispatch(//productThunk(updatedProduct))
-
-  return newCartItem;
+  return data;
 })
 
 const cartSlice = createSlice({
@@ -46,24 +45,10 @@ const cartSlice = createSlice({
     });
 
     builder.addCase(handleAddToCart.fulfilled, (state, action) => {
-      return [...state, action.payload]
+      const item = action.payload.item
+      return [...state, item]
     });
   }
 })
-
-
-// const handleCheckout = async () => {
-//   try {
-//     const resp = await fetch("/api/checkout", {
-//       method: "POST"
-//     });
-
-//     if(resp.ok) {
-//       dispatch(cartActions.createCartCheckout())
-//     }
-//   } catch(e) {
-//     console.log(e)
-//   }
-// }
 
 export default cartSlice.reducer

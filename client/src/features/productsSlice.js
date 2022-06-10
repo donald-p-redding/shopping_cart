@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
+import { handleAddToCart } from "./cartSlice";
 
 const initialState = []
 
@@ -44,15 +45,6 @@ export const handleAddProduct = createAsyncThunk("products/handleAddProduct", as
   return contents
 });
 
-export const handleAddToCart = createAsyncThunk("products/handleAddToCart", async(_id) => {
-    const resp = await fetch("/api/add-to-cart", {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({productId: _id})
-  });
-})
 
 const productsSlice = createSlice({
   name: "products",
@@ -73,7 +65,14 @@ const productsSlice = createSlice({
         }
         return p
       })
+
     });
+
+    builder.addCase(handleAddToCart.fulfilled, (state, action) => {
+      const idx = state.findIndex(p => p._id === action.payload.product._id)
+      //facilitated by Immer --> can mutate
+      state[idx].quantity -= 1;
+    })
 
     builder.addCase(handleDeleteProduct.fulfilled, (state, action) => {
       return state.filter((p) =>  p._id !== action.payload)
