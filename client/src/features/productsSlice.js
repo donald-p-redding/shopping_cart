@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 
 const initialState = []
 
@@ -43,6 +44,16 @@ export const handleAddProduct = createAsyncThunk("products/handleAddProduct", as
   return contents
 });
 
+export const handleAddToCart = createAsyncThunk("products/handleAddToCart", async(_id) => {
+    const resp = await fetch("/api/add-to-cart", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({productId: _id})
+  });
+})
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
@@ -74,16 +85,23 @@ const productsSlice = createSlice({
   }
 })
 
-// const handleAddProduct = async (newProduct) => {
-//   const newProdJSON = await fetch("/api/products", {
-//     method: 'POST',
+// const addToCart = async (e) => {
+//   e.preventDefault();
+//   const resp = await fetch("/api/add-to-cart", {
+//     method: "POST",
 //     headers: {
 //       'Content-Type': 'application/json'
 //     },
-//     body: JSON.stringify(newProduct)
-//   })
-//   const contents = await newProdJSON.json()
-//   dispatch(productActions.createProductAdded(contents))
+//     body: JSON.stringify({productId: _id})
+//   });
+
+//   const { product:updatedProduct, item:newCartItem } = await resp.json();
+
+//   dispatch(productActions.createProductUpdated(updatedProduct))
+
+//   const inCart = itemInCart(newCartItem._id)
+
+//   dispatch(cartActions.createItemAddedCart({ data: newCartItem, inCart }))
 // }
 
 export default productsSlice.reducer;

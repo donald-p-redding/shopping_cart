@@ -4,6 +4,7 @@ import EditProductForm from './EditProductForm';
 import { cartActions } from '../lib/reducers/cartReducer';
 import { productActions } from '../lib/reducers/productsReducer';
 import { handleDeleteProduct } from '../features/productsSlice'
+import { handleAddToCart } from '../features/cartSlice';
 
 const Product = ({ info, onDelete, onUpdate }) => {
   const dispatch = useDispatch();
@@ -18,24 +19,6 @@ const Product = ({ info, onDelete, onUpdate }) => {
     return !!cart.find(item => item._id === itemId)
   }
 
-  const addToCart = async (e) => {
-    e.preventDefault();
-    const resp = await fetch("/api/add-to-cart", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({productId: _id})
-    });
-
-    const { product:updatedProduct, item:newCartItem } = await resp.json();
-
-    dispatch(productActions.createProductUpdated(updatedProduct))
-
-    const inCart = itemInCart(newCartItem._id)
-
-    dispatch(cartActions.createItemAddedCart({ data: newCartItem, inCart }))
-  }
 
   return (
     <div className="product">
@@ -44,7 +27,7 @@ const Product = ({ info, onDelete, onUpdate }) => {
         <p className="price">{price}</p>
         <p className="quantity">{quantity} left in stock</p>
         <div className="actions product-actions">
-          <button onClick={addToCart} className="button add-to-cart">Add to Cart</button>
+          <button onClick={() => dispatch(handleAddToCart(_id))} className="button add-to-cart">Add to Cart</button>
           <button onClick={toggleVisibility} className="button edit">Edit</button>
         </div>
         <button className="delete-button" onClick={() => dispatch(handleDeleteProduct(_id))}><span>X</span></button>

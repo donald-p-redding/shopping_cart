@@ -2,6 +2,7 @@ import { React, useEffect } from "react";
 import CartList from "./CartList";
 import { useSelector, useDispatch } from "react-redux";
 import { cartActions } from "../lib/reducers/cartReducer";
+import { cartCheckout } from "../features/cartSlice";
 
 const Header = () => {
   const { cart } = useSelector(state => state);
@@ -14,19 +15,6 @@ const Header = () => {
     dispatch(cartActions.createCartReceived(cartData))
   }
 
-  const handleCheckout = async () => {
-    try {
-      const resp = await fetch("/api/checkout", {
-        method: "POST"
-      });
-
-      if(resp.ok) {
-        dispatch(cartActions.createCartCheckout())
-      }
-    } catch(e) {
-      console.log(e)
-    }
-  }
 
     useEffect(() => {
       populateCart()
@@ -38,7 +26,7 @@ const Header = () => {
       <div className="cart">
         <h2>Your Cart</h2>
         <CartList cartItems={cart}/>
-        <button onClick={handleCheckout} className="button checkout">Checkout</button>
+        <button onClick={() => dispatch(cartCheckout())} className="button checkout">Checkout</button>
       </div>
     </header>
   )
