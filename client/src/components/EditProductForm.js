@@ -1,7 +1,11 @@
 import {React, useState} from 'react'
+import { useDispatch } from 'react-redux'
+import  { handleUpdateProduct } from "../features/productsSlice"; 
 
-const EditProductForm = ({ info, visible, toggle, onUpdate }) => {
+const EditProductForm = ({ info, visible, toggle }) => {
   const { title, quantity, price, _id } = info
+
+  const dispatch = useDispatch();
 
   const [productInfo, setProductInfo] = useState({title, quantity, price})
   
@@ -58,8 +62,7 @@ const EditProductForm = ({ info, visible, toggle, onUpdate }) => {
               price: Number(Number.parseFloat(productInfo.price).toFixed(2)),
               quantity: Number.parseInt(productInfo.quantity, 10),
             }
-            console.log('updating info')
-            onUpdate(_id, updatedProd)
+            dispatch(handleUpdateProduct({ id: _id, productInfo: updatedProd }))
             toggle()
           }}>
             Update
