@@ -2,7 +2,6 @@ import React from 'react'
 import Product from './Product'
 import { useSelector , useDispatch} from 'react-redux'
 import { useEffect } from 'react'
-import { productActions } from '../lib/reducers/productsReducer'
 import { retrieveProducts } from '../features/productsSlice'
 
 const Products = () => {
@@ -14,7 +13,7 @@ const Products = () => {
   useEffect(() => dispatch(retrieveProducts()), [dispatch])
 
   return (
-    <div class="product-listing">
+    <div className="product-listing">
         <h2>Products</h2>
         { products.map(prod => <Product key={prod._id} info={prod} />)}
     </div>

@@ -32,22 +32,22 @@ const AddProductForm = ({onAddProduct}) => {
       <p><a onClick={toggleVisibility} class="button add-product-button">Add A Product</a></p>
       <h3>Add Product</h3>
       <form>
-        <div class="input-group">
-          <label for="product-name">Product Name</label>
+        <div className="input-group">
+          <label htmlFor="product-name">Product Name</label>
           <input type="text" id="product-name" value={productName} onChange={(e) => setProductName(e.target.value)}/>
         </div>
 
-        <div class="input-group">
-          <label for="product-price">Price</label>
+        <div className="input-group">
+          <label htmlFor="product-price">Price</label>
           <input type="text" id="product-price" value={productPrice} onChange={(e) => setProductPrice(e.target.value)}/>
         </div>
 
-        <div class="input-group">
-          <label for="product-quantity">Quantity</label>
+        <div className="input-group">
+          <label htmlFor="product-quantity">Quantity</label>
           <input type="text" id="product-quantity" value={productQuantity} onChange={(e) => setProductQuantity(e.target.value)}/>
         </div>
 
-        <div class="actions form-actions">
+        <div className="actions form-actions">
           <button className="button"
           onClick={(e) => {
             e.preventDefault() //make a handleClick func

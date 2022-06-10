@@ -1,23 +1,16 @@
 import { React, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import EditProductForm from './EditProductForm';
-import { cartActions } from '../lib/reducers/cartReducer';
-import { productActions } from '../lib/reducers/productsReducer';
 import { handleDeleteProduct } from '../features/productsSlice'
 import { handleAddToCart } from '../features/cartSlice';
 
-const Product = ({ info, onDelete, onUpdate }) => {
+const Product = ({ info, onUpdate }) => {
   const dispatch = useDispatch();
-  const { cart } = useSelector(state => state);
   const { title, quantity, price, _id } = info;
 
   const [ visible, setVisible ] = useState(false);
 
   const toggleVisibility = () => setVisible(!visible);
-
-  const itemInCart = (itemId) => {
-    return !!cart.find(item => item._id === itemId)
-  }
 
 
   return (
