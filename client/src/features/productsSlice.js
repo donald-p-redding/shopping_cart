@@ -20,7 +20,7 @@ export const handleUpdateProduct = createAsyncThunk("products/handleUpdateProduc
 
   const newData = await resp.json()
   return newData;
-})
+});
 
 export const handleDeleteProduct = createAsyncThunk("products/handleDeleteProduct", async (id) => {
     console.log("hello from delete thunk")
@@ -29,7 +29,19 @@ export const handleDeleteProduct = createAsyncThunk("products/handleDeleteProduc
     })
 
     return id;
-})
+});
+
+export const handleAddProduct = createAsyncThunk("products/handleAddProduct", async(newProduct) => {
+    const newProdJSON = await fetch("/api/products", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newProduct)
+  })
+  const contents = await newProdJSON.json()
+  return contents
+});
 
 const productsSlice = createSlice({
   name: "products",
@@ -55,16 +67,23 @@ const productsSlice = createSlice({
     builder.addCase(handleDeleteProduct.fulfilled, (state, action) => {
       return state.filter((p) =>  p._id !== action.payload)
     });
+
+    builder.addCase(handleAddProduct.fulfilled, (state, action) => {
+      return [...state, action.payload]
+    })
   }
 })
 
-// const handleDeleteProduct = async (id) => {
-//   const res = await fetch(`/api/products/${id}`, {
-//     method: 'DELETE',
+// const handleAddProduct = async (newProduct) => {
+//   const newProdJSON = await fetch("/api/products", {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(newProduct)
 //   })
-//   if (res.ok) {
-//     dispatch(productActions.createProductDeleted(id))
-//   }
+//   const contents = await newProdJSON.json()
+//   dispatch(productActions.createProductAdded(contents))
 // }
 
 export default productsSlice.reducer;
