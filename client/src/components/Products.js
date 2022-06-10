@@ -3,17 +3,12 @@ import Product from './Product'
 import { useSelector , useDispatch} from 'react-redux'
 import { useEffect } from 'react'
 import { productActions } from '../lib/reducers/productsReducer'
+import { retrieveProducts } from '../features/productsSlice'
 
 const Products = () => {
   const dispatch = useDispatch()
-  const  { products } = useSelector(state => state)
+  const  products = useSelector((state) => state.products)
   
-  const retrieveProducts = async() => {
-    const data = await fetch("/api/products")
-    const parsedData = await data.json()
-    dispatch(productActions.createProductsRecieved(parsedData))
-  }
-
   const handleDeleteProduct = async (id) => {
     const res = await fetch(`/api/products/${id}`, {
       method: 'DELETE',
@@ -36,7 +31,7 @@ const Products = () => {
     dispatch(productActions.createProductUpdated(newData))
   }
 
-  useEffect(() => retrieveProducts(), [dispatch])
+  useEffect(() => dispatch(retrieveProducts()), [dispatch])
 
   return (
     <div class="product-listing">
