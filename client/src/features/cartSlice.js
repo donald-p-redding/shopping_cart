@@ -37,7 +37,13 @@ const cartSlice = createSlice({
     });
     builder.addCase(handleAddToCart.fulfilled, (state, action) => {
       const item = action.payload.item
-      return [...state, item]
+      const itemInCart = state.find((i) => i._id === item._id)
+      if (!itemInCart) {
+        return [...state, item]
+      }
+      // can mutate due to Immer library
+      itemInCart.quantity++
+      return state
     });
   }
 })
