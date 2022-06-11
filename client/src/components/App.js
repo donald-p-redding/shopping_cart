@@ -1,8 +1,6 @@
-import { React, useState, useEffect } from "react";
 import Header from "./Header"
 import Products from "./Products"
 import AddProductForm from "./AddProductForm";
-
 
 const App = () => {
   return (

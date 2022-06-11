@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import EditProductForm from './EditProductForm';
 import { handleDeleteProduct } from '../features/productsSlice'
 import { handleAddToCart } from '../features/cartSlice';
@@ -7,11 +7,8 @@ import { handleAddToCart } from '../features/cartSlice';
 const Product = ({ info, onUpdate }) => {
   const dispatch = useDispatch();
   const { title, quantity, price, _id } = info;
-
-  const [ visible, setVisible ] = useState(false);
-
+  const [visible, setVisible] = useState(false);
   const toggleVisibility = () => setVisible(!visible);
-
 
   return (
     <div className="product">
@@ -26,7 +23,7 @@ const Product = ({ info, onUpdate }) => {
         <button className="delete-button" onClick={() => dispatch(handleDeleteProduct(_id))}><span>X</span></button>
       </div>
 
-      <EditProductForm info={info} visible={visible} toggle={toggleVisibility} onUpdate={onUpdate}/>
+      <EditProductForm info={info} visible={visible} toggle={toggleVisibility} onUpdate={onUpdate} />
     </div>
   )
 }

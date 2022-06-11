@@ -14,7 +14,6 @@ const CartList = ({ cartItems }) => {
           <th>Price</th>
         </tr>
         {cartItems.map(item => <CartEntry key={item._id} info={item} />)}
-
         <tr>
           <td colSpan="3" className="total">Total: {total}</td>
         </tr>
