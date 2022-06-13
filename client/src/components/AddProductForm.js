@@ -1,6 +1,8 @@
 import { React, useState } from 'react'
+import { useContext } from 'react';
+import { handleAddProduct, ProductsContext } from '../context/productContext';
 
-const AddProductForm = ({onAddProduct}) => {
+const AddProductForm = () => {
   const [ visible, setVisible ] = useState(false)
 
   const classType = visible ? "add-form visible" : "add-form";
@@ -20,7 +22,7 @@ const AddProductForm = ({onAddProduct}) => {
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
 
-
+  const {products, dispatch} = useContext(ProductsContext)
 
   return (
     <div className={classType}>
@@ -51,7 +53,8 @@ const AddProductForm = ({onAddProduct}) => {
               price: Number(Number.parseFloat(productPrice).toFixed(2)),
               quantity: Number.parseInt(productQuantity, 10),
             }
-            onAddProduct(newProd, reset)
+            handleAddProduct(dispatch, newProd)
+            reset()
           }}>
             Add
           </button>
