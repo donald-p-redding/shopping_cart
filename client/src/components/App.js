@@ -13,7 +13,7 @@ import data from '../lib/data'
 const App = () => {
   return (
     <div id="app">
-      {/* <Header /> */}
+      <Header />
       <main>
         <Products/>
         <AddProductForm />

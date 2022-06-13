@@ -26,7 +26,7 @@ const AddProductForm = () => {
 
   return (
     <div className={classType}>
-      <p><a onClick={toggleVisibility} class="button add-product-button">Add A Product</a></p>
+      <p><a onClick={toggleVisibility} className="button add-product-button">Add A Product</a></p>
       <h3>Add Product</h3>
       <form>
         <div class="input-group">

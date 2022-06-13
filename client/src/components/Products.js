@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Product from './Product'
-import { useContext, useReducer } from 'react'
+import { useContext} from 'react'
 import { ProductsContext } from '../context/productContext'
 import { retrieveProducts } from '../context/productContext'
 
@@ -9,7 +9,7 @@ const Products = () => {
   useEffect(() => {
     retrieveProducts(dispatch)
   }, [dispatch])
-  
+
   return (
     <div class="product-listing">
         <h2>Products</h2>
