@@ -35,8 +35,8 @@ export const retrieveProducts = async (dispatch) => {
 }
 
 export const handleUpdateProduct = async (dispatch, arg) => {
-  const { id, productInfo } = arg;
-  const resp = await fetch(`/api/products/${id}`, {
+  const { _id, productInfo } = arg;
+  const resp = await fetch(`/api/products/${_id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'

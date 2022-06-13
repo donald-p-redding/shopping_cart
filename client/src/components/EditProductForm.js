@@ -1,6 +1,8 @@
 import {React, useState} from 'react'
+import { useContext } from 'react'
+import { handleUpdateProduct, ProductsContext } from '../context/productContext'
 
-const EditProductForm = ({ info, visible, toggle, onUpdate }) => {
+const EditProductForm = ({ info, visible, toggle }) => {
   const { title, quantity, price, _id } = info
 
   const [productInfo, setProductInfo] = useState({title, quantity, price})
@@ -28,6 +30,8 @@ const EditProductForm = ({ info, visible, toggle, onUpdate }) => {
 
   
   const classType = visible ? 'edit-form visible' : 'edit-form';
+
+  const {dispatch} = useContext(ProductsContext)  
 
   return (
     <div className={classType}>
@@ -59,7 +63,7 @@ const EditProductForm = ({ info, visible, toggle, onUpdate }) => {
               quantity: Number.parseInt(productInfo.quantity, 10),
             }
             console.log('updating info')
-            onUpdate(_id, updatedProd)
+            handleUpdateProduct(dispatch, {_id, productInfo: updatedProd})
             toggle()
           }}>
             Update
