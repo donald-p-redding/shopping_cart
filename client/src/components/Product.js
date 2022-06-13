@@ -1,9 +1,11 @@
 import { React, useContext, useState } from 'react'
 import EditProductForm from './EditProductForm';
 import { handleDeleteProduct, ProductsContext } from '../context/productContext';
+import { CartContext, handleAddToCart } from '../context/cartContext';
 
 const Product = ({ info}) => {
   const {dispatch} = useContext(ProductsContext)
+  const { cartDispatch} = useContext(CartContext)
   const { title, quantity, price, _id } = info;
 
   const [ visible, setVisible ] = useState(false);
@@ -12,8 +14,7 @@ const Product = ({ info}) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log("adding to cart")
-    // onCartAdd(_id);
+    handleAddToCart(cartDispatch, _id, dispatch)
   }
 
   return (

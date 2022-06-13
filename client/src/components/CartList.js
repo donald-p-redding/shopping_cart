@@ -4,7 +4,12 @@ import { CartContext, cartRecieved } from '../context/cartContext';
 
 const CartList = () => {
   const {cartItems, cartDispatch} = useContext(CartContext);
-  const total = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0)
+  const total = (stateList) => {
+    return stateList
+      .reduce((total, item) => 
+      total + (item.price * item.quantity)
+      , 0)
+  }
   
   useEffect(() => {
     cartRecieved(cartDispatch)
@@ -18,10 +23,10 @@ const CartList = () => {
           <th>Quantity</th>
           <th>Price</th>
         </tr>
-        {cartItems.map(item => <CartEntry key={item._id} info={item} />)}
+        {cartItems.map((item) => <CartEntry key={item._id} info={item} />)}
 
         <tr>
-          <td colSpan="3" className="total">Total: {total}</td>
+          <td colSpan="3" className="total">Total: {total(cartItems)}</td>
         </tr>
       </tbody>
     </table>

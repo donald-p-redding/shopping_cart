@@ -12,11 +12,11 @@ const cartReducer = (state, action) => {
     }
     case "cart/handleAddToCart" : {
       if ((state.findIndex((cartItem) => cartItem._id === action.payload._id) === -1)) {
-        return [...state, action.payload.data]
+        return [...state, action.payload]
       }
       return state.map((cartItem) => {
-        if (cartItem._id === action.payload.data._id) {
-          return action.payload.data
+        if (cartItem._id === action.payload._id) {
+          return action.payload
         }
         return cartItem
       })
@@ -49,6 +49,7 @@ export const handleAddToCart = async(dispatch, _id, secondDispatch) => {
     body: JSON.stringify({ productId: _id })
   });
   const data = await resp.json();
+  console.log(data)
   dispatch({type: "cart/handleAddToCart", payload: data.item })
   if (secondDispatch) {
     secondDispatch({type: "products/handleUpdateProduct", payload: data.product})
