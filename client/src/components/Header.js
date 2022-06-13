@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import CartList from "./CartList";
+import { CartContext } from "../context/cartContext";
 
-const Header = ({ cart, onCheckout }) => {
-
+import { cartCheckout } from "../context/cartContext";
+const Header = () => {
+  const {cartDispatch} = useContext(CartContext)
   const handleCheckout = (e) => {
     e.preventDefault();
-    onCheckout();
+    cartCheckout(cartDispatch)
   }
 
   return (
-    <header>
+    
+      <header>
       <h1>The Shop!</h1>
       <div className="cart">
         <h2>Your Cart</h2>
-        <CartList cartItems={cart}/>
+        <CartList />
         <button onClick={handleCheckout} className="button checkout">Checkout</button>
       </div>
     </header>
+    
+    
   )
 
 }

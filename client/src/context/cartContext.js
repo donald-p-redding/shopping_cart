@@ -55,11 +55,11 @@ export const handleAddToCart = async(dispatch, _id, secondDispatch) => {
   }
 }
 
-export const CartProvider = ({chidlren}) => {
+export const CartProvider = ({children}) => {
   const [cartItems, cartDispatch] = useReducer(cartReducer, [])
   return (
     <CartContext.Provider value={{cartItems, cartDispatch}}>
-      {chidlren}
+      {children}
     </CartContext.Provider>
   )
 }
